@@ -1,6 +1,7 @@
 package com.app.scheduling.paciente;
 
 import com.app.scheduling.endereco.Endereco;
+import com.app.scheduling.medico.DadosAtualizacaoMedico;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -34,6 +35,24 @@ public class Paciente {
         this.pacte_email = dados.pacte_email();
         this.pacte_telefone = dados.pacte_telefone();
         this.endereco = new Endereco(dados.endereco());
+    }
+
+    public void atualizarInformacoes(DadosAtualizacaoPaciente dados) {
+        if(dados.nome() != null){
+            this.pacte_nome = dados.nome();
+        }
+
+        if(dados.telefone() != null){
+            this.pacte_telefone = dados.telefone();
+        }
+
+        if(dados.endereco() != null){
+            this.endereco.atualizarInformacoes(dados.endereco());
+        }
+    }
+
+    public void excluir() {
+        this.pacteAtivo = false;
     }
 
 }

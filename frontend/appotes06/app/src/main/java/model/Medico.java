@@ -1,7 +1,7 @@
 package model;
 
 public class Medico {
-    private int id;                // O 'id' será atribuído após a resposta da API
+    private Long id;                // O 'id' será atribuído após a resposta da API
     private String nome;
     private String especialidade;
     private String crm;
@@ -20,11 +20,11 @@ public class Medico {
     }
 
     // Getter e Setter para id
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

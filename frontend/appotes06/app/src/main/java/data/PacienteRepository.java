@@ -4,6 +4,8 @@ import java.util.List;
 
 import api.ApiService;
 import api.RetrofitClient;
+import model.DadosAtualizacaoMedico;
+import model.DadosAtualizacaoPaciente;
 import model.Paciente;
 import model.PacienteResponse;
 import retrofit2.Call;
@@ -55,6 +57,48 @@ public class PacienteRepository {
                     callback.onSuccess("Paciente criado com sucesso!");
                 } else {
                     callback.onError("Erro ao criar paciente!");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                callback.onError("Falha na comunicação com o servidor: " + t.getMessage());
+            }
+        });
+    }
+
+    //Método para excluir paciente
+    public void excluirPaciente(Long id, final PacienteRepository.PacienteCallback callback) {
+        Call<Void> call = apiService.deletePaciente(id);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    callback.onSuccess("Paciente desativado com sucesso!");
+                } else {
+                    callback.onError("Erro ao desativar paciente!");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                callback.onError("Falha na comunicação com o servidor: " + t.getMessage());
+            }
+        });
+    }
+
+    // Método para atualizar paciente
+    public void atualizarPaciente(Long id, DadosAtualizacaoPaciente dados, final PacienteRepository.PacienteCallback callback) {
+        Call<Void> call = apiService.atualizarPaciente(id, dados);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    callback.onSuccess("Paciente atualizado com sucesso!");
+                } else {
+                    callback.onError("Erro ao atualizar paciente!");
                 }
             }
 
