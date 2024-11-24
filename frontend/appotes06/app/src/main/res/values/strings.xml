@@ -7,6 +7,7 @@
     <string name="section_pacientes">Pacientes</string>
     <string name="section_consultas">Consultas</string>
     <string name="btn_cadastrar">Cadastrar novo perfil</string>
+    <string name="btn_desativar">Desativar este perfil</string>
 
     <string name="pacientes">pacientes</string>
     <string name="medicos">Médicos</string>
@@ -20,9 +21,12 @@
     <string name="endereco_profissional">Endereço profissional</string>
     <string name="endereco">Endereço</string>
     <string name="btn_concluir_cadastro">Concluir Cadastro</string>
+    <string name="btn_concluir_edicao">Concluir Edição</string>
     <string name="btn_agendar_nova_consulta">Agendar nova consulta</string>
     <string name="btn_agendar_consulta">Agendar consulta</string>
     <string name="novo_perfil">Novo perfil</string>
+    <string name="editar_medico">Editar Medico</string>
+    <string name="editar_paciente">Editar Paciente</string>
     <string name="envolvidos">Envolvidos</string>
     <string name="nome_paciente">Nome do paciente</string>
     <string name="nome_medico">Nome do médico</string>
@@ -47,6 +51,9 @@
     <string name="uf_input">UF</string>
     <string name="cep">CEP</string>
 
+    <string name="desativar_perfil">Deseja desativar este perfil?</string>
+    <string name="alert_desativar">Ao desativar este perfil, suas informações ficarão desabilitadas para pesquisas e futuros agendamentos.</string>
+    <string name="alert_desativar_2">Certifique-se que não há consultas agendadas, caso tenha, a desativação não poderá ser concluída.</string>
     <string-array name="especialidades_array">
         <item>Ortopedia</item>
         <item>Cardiologia</item>

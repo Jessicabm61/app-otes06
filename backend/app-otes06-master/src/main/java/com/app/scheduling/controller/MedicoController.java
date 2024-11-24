@@ -27,7 +27,7 @@ public class MedicoController {
         return repository.findAllByAtivoTrue(paginacao).map(DadosListagemMedico::new);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     @Transactional
     public void atualizar(@RequestBody @Valid DadosAtualizacaoMedico dados){
         var medico = repository.getReferenceById(dados.id());

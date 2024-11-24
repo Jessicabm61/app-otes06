@@ -71,22 +71,6 @@ public class ConsultaAdapter extends ArrayAdapter<Agenda> {
             }
         }
 
-        // Ícone de opções (que pode ser editado ou cancelado)
-        ImageView imageViewOptions = convertView.findViewById(R.id.imageViewOptions);
-
-        // Botões Editar e Cancelar
-        LinearLayout llButtons = convertView.findViewById(R.id.llButtons);
-
-        // Exibe ou oculta os botões Editar e Cancelar
-        imageViewOptions.setOnClickListener(v -> {
-            if (llButtons.getVisibility() == View.GONE) {
-                llButtons.setVisibility(View.VISIBLE);
-            } else {
-                llButtons.setVisibility(View.GONE);
-            }
-        });
-
-
         // Retorna a view preenchida com os dados
         return convertView;
     }

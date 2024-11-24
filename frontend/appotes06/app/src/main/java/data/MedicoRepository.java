@@ -4,6 +4,7 @@ import java.util.List;
 
 import api.ApiService;
 import api.RetrofitClient;
+import model.DadosAtualizacaoMedico;
 import model.Medico;
 import model.MedicoResponse;
 import retrofit2.Call;
@@ -41,7 +42,7 @@ public class MedicoRepository {
         });
     }
 
-    // Novo método para criar médico
+    // Método para criar médico
     public void criarMedico(Medico medico, final MedicoCallback callback) {
         Call<Void> call = apiService.criarMedico(medico);
 
@@ -61,6 +62,49 @@ public class MedicoRepository {
             }
         });
     }
+
+    //Método para excluir médico
+    public void excluirMedico(Long id, final MedicoCallback callback) {
+        Call<Void> call = apiService.deleteMedico(id);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    callback.onSuccess("Médico desativado com sucesso!");
+                } else {
+                    callback.onError("Erro ao desativar médico!");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                callback.onError("Falha na comunicação com o servidor: " + t.getMessage());
+            }
+        });
+    }
+
+    // Método para atualizar médico
+    public void atualizarMedico(Long id, DadosAtualizacaoMedico dados, final MedicoCallback callback) {
+        Call<Void> call = apiService.atualizarMedico(id, dados);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    callback.onSuccess("Médico atualizado com sucesso!");
+                } else {
+                    callback.onError("Erro ao atualizar médico!");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                callback.onError("Falha na comunicação com o servidor: " + t.getMessage());
+            }
+        });
+    }
+
 
     // Interface para callback de sucesso e erro ao criar médico
     public interface MedicoCallback {

@@ -1,7 +1,7 @@
 package model;
 
 public class Paciente {
-    private int id;                // O 'id' é agora opcional e será setado após a criação
+    private Long id;                // O 'id' é agora opcional e será setado após a criação
     private String pacte_nome;
     private String pacte_email;
     private String pacte_telefone;
@@ -16,11 +16,11 @@ public class Paciente {
     }
 
     // Getter e Setter para id
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

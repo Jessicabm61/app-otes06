@@ -67,47 +67,6 @@
         android:textColor="@color/text1"
         android:textSize="14sp" />
 
-    <!-- Botões Editar e Cancelar - inicialmente invisíveis -->
-    <LinearLayout
-        android:id="@+id/llButtons"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:visibility="gone"
-        android:layout_gravity="center_horizontal"
-        >
-
-        <Button
-            android:id="@+id/buttonEditar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_editar"
-            android:textColor="@color/blue3"
-            android:textAllCaps="false"
-            android:textSize="14sp"
-            android:background="@drawable/button_border"
-            app:backgroundTint="@null"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="8dp"
-            />
-
-        <Button
-            android:id="@+id/buttonCancelar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_cancelar_consulta"
-            android:textColor="@color/blue3"
-            android:textAllCaps="false"
-            android:textSize="14sp"
-            android:background="@drawable/button_border"
-            app:backgroundTint="@null"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="8dp" />
-
-    </LinearLayout>
-
-
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

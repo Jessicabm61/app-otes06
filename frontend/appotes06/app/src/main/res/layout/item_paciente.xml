@@ -75,7 +75,7 @@
             android:id="@+id/buttonCancelar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/excluir"
+            android:text="@string/btn_desativar"
             android:textColor="@color/blue3"
             android:textAllCaps="false"
             android:textSize="14sp"

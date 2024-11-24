@@ -234,13 +234,13 @@ public class ConsultasCreateActivity extends AppCompatActivity {
     // Obtém o ID do paciente selecionado no Spinner
     private int getPacienteId() {
         Paciente pacienteSelecionado = pacientesList.get(namePacienteView.getSelectedItemPosition());
-        return pacienteSelecionado.getId();  // Retorna o ID do paciente
+        return pacienteSelecionado.getId().intValue();  // Retorna o ID do paciente
     }
 
     // Obtém o ID do médico selecionado no Spinner
     private int getMedicoId() {
         Medico medicoSelecionado = medicosList.get(nameMedicoView.getSelectedItemPosition());
-        return medicoSelecionado.getId();  // Retorna o ID do médico
+        return medicoSelecionado.getId().intValue(); // Retorna o ID do medico
     }
 
     // Método para cancelar o agendamento e voltar para a MainActivity

@@ -8,6 +8,7 @@ import com.app.scheduling.medico.Medico;
 import com.app.scheduling.medico.MedicoRepository;
 import com.app.scheduling.paciente.Paciente;
 import com.app.scheduling.paciente.PacienteRepository;
+import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,6 +29,9 @@ public class AgendamentoController {
     @Autowired
     PacienteRepository pacienteRepository;
 
+    @Autowired
+    private EntityManager entityManager;
+
     @PostMapping
     @Transactional
     public String agendar(@RequestBody DadosCadastroAgenda dados) {
@@ -43,4 +47,5 @@ public class AgendamentoController {
     public Page<DadosListagemAgenda> listar(@PageableDefault(size = 10) Pageable paginacao){
         return repository.findAll(paginacao).map(DadosListagemAgenda::new);
     }
+
 }
