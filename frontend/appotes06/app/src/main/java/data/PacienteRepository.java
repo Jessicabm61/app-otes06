@@ -4,7 +4,6 @@ import java.util.List;
 
 import api.ApiService;
 import api.RetrofitClient;
-import model.DadosAtualizacaoMedico;
 import model.DadosAtualizacaoPaciente;
 import model.Paciente;
 import model.PacienteResponse;

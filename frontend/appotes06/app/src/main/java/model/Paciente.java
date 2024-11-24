@@ -1,13 +1,12 @@
 package model;
 
 public class Paciente {
-    private Long id;                // O 'id' é agora opcional e será setado após a criação
+    private Long id;
     private String pacte_nome;
     private String pacte_email;
     private String pacte_telefone;
     private Endereco endereco;
 
-    // Construtor sem id
     public Paciente(String pacte_nome, String pacte_email, String pacte_telefone, Endereco endereco) {
         this.pacte_nome = pacte_nome;
         this.pacte_email = pacte_email;
@@ -15,7 +14,6 @@ public class Paciente {
         this.endereco = endereco;
     }
 
-    // Getter e Setter para id
     public Long getId() {
         return id;
     }
@@ -24,7 +22,6 @@ public class Paciente {
         this.id = id;
     }
 
-    // Getters e Setters para pacte_nome
     public String getPacte_nome() {
         return pacte_nome;
     }
@@ -33,7 +30,6 @@ public class Paciente {
         this.pacte_nome = pacte_nome;
     }
 
-    // Getters e Setters para pacte_email
     public String getPacte_email() {
         return pacte_email;
     }
@@ -42,7 +38,6 @@ public class Paciente {
         this.pacte_email = pacte_email;
     }
 
-    // Getters e Setters para pacte_telefone
     public String getPacte_telefone() {
         return pacte_telefone;
     }
@@ -51,7 +46,6 @@ public class Paciente {
         this.pacte_telefone = pacte_telefone;
     }
 
-    // Getter e Setter para endereco
     public Endereco getEndereco() {
         return endereco;
     }

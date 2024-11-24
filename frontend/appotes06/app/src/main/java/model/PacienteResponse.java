@@ -5,7 +5,6 @@ import java.util.List;
 public class PacienteResponse {
     private List<Paciente> content; // Lista de pacientes
 
-    // Getter e Setter
     public List<Paciente> getContent() {
         return content;
     }

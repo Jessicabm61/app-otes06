@@ -12,65 +12,51 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
-
+import java.util.ArrayList;
 import java.util.List;
-
 import appmedico.com.appotes06.AtualizarPacienteActivity;
 import appmedico.com.appotes06.R;
 import data.PacienteRepository;
-import model.Paciente;  // Modelo Paciente
+import model.Paciente;
 
 public class PacienteAdapter extends ArrayAdapter<Paciente> {
 
     private Context context;
     private List<Paciente> pacientes;
-    private PacienteRepository pacienteRepository; // Repositório para excluir paciente
+    private List<Paciente> pacientesFiltrados;  // Lista filtrada
+    private PacienteRepository pacienteRepository;
 
     // Construtor do adapter
     public PacienteAdapter(Context context, List<Paciente> pacientes) {
         super(context, 0, pacientes);
         this.context = context;
         this.pacientes = pacientes;
+        this.pacientesFiltrados = new ArrayList<>(pacientes);  // Inicializa a lista filtrada com todos os pacientes
         this.pacienteRepository = new PacienteRepository();
     }
 
-    // Método que infla o layout e popula os dados
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // Verifica se a view já foi inflada, se não, infla a view
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_paciente, parent, false);
         }
 
-        // Obtém o paciente na posição desejada
         Paciente paciente = getItem(position);
 
-        // Verifica se o paciente não é nulo
         if (paciente != null) {
-            // Referência dos TextViews
             TextView textViewNomePaciente = convertView.findViewById(R.id.textViewNomePaciente);
             TextView textViewEmailPaciente = convertView.findViewById(R.id.textViewEmailPaciente);
-
-            // Preenche os campos com os dados do paciente
             textViewNomePaciente.setText(paciente.getPacte_nome());
             textViewEmailPaciente.setText(paciente.getPacte_email());
         }
 
-        // Ícone de opções (que pode ser editado ou cancelado)
         ImageView imageViewOptions = convertView.findViewById(R.id.imageViewOptions);
-
-        // Botões Editar e Cancelar
         LinearLayout llButtons = convertView.findViewById(R.id.llButtons);
         Button buttonCancelar = convertView.findViewById(R.id.buttonCancelar);
         Button buttonEditar = convertView.findViewById(R.id.buttonEditar);
 
-        // Exibe ou oculta os botões Editar e Cancelar
         imageViewOptions.setOnClickListener(v -> {
-            if (llButtons.getVisibility() == View.GONE) {
-                llButtons.setVisibility(View.VISIBLE);
-            } else {
-                llButtons.setVisibility(View.GONE);
-            }
+            llButtons.setVisibility(llButtons.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
         });
 
         buttonCancelar.setOnClickListener(v -> {
@@ -79,26 +65,44 @@ public class PacienteAdapter extends ArrayAdapter<Paciente> {
             }
         });
 
-        //Botão Editar envia os dados para a Activity de edição
         buttonEditar.setOnClickListener(v -> {
             if (paciente != null) {
-                // Crie o Intent para navegar para a AtualizarPacienteActivity
                 Intent intent = new Intent(context, AtualizarPacienteActivity.class);
-
-                // Passando todos os dados do médico via Intent
                 intent.putExtra("ID_PACIENTE", paciente.getId());
                 intent.putExtra("NOME_PACIENTE", paciente.getPacte_nome());
-
-                // Inicie a Activity para editar o médico
                 context.startActivity(intent);
             }
         });
 
-        // Retorna a view preenchida com os dados
         return convertView;
     }
 
-    // Método para mostrar o diálogo de confirmação
+    // Método para filtrar a lista de pacientes
+    public void filtrar(String texto) {
+        if (texto.isEmpty()) {
+            pacientesFiltrados = new ArrayList<>(pacientes);  // Se não há texto, exibe todos os pacientes
+        } else {
+            List<Paciente> listaFiltrada = new ArrayList<>();
+            for (Paciente paciente : pacientes) {
+                if (paciente.getPacte_nome().toLowerCase().contains(texto.toLowerCase())) {
+                    listaFiltrada.add(paciente);
+                }
+            }
+            pacientesFiltrados = listaFiltrada;
+        }
+        notifyDataSetChanged();  // Notifica a mudança para atualizar a listView
+    }
+
+    @Override
+    public int getCount() {
+        return pacientesFiltrados.size();  // Retorna o número de pacientes filtrados
+    }
+
+    @Override
+    public Paciente getItem(int position) {
+        return pacientesFiltrados.get(position);  // Retorna o paciente filtrado
+    }
+
     private void mostrarDialogoDeConfirmacao(Paciente paciente, int position) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View dialogView = inflater.inflate(R.layout.dialog_desativar, null);
@@ -117,7 +121,7 @@ public class PacienteAdapter extends ArrayAdapter<Paciente> {
                     @Override
                     public void onSuccess(String message) {
                         pacientes.remove(position);
-                        notifyDataSetChanged(); // Atualiza a lista
+                        notifyDataSetChanged();
                         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
                     }
 
@@ -127,11 +131,11 @@ public class PacienteAdapter extends ArrayAdapter<Paciente> {
                     }
                 });
             }
-            dialog.dismiss();  // Fecha o diálogo após a exclusão
+            dialog.dismiss();
         });
 
         buttonCancelar.setOnClickListener(v -> {
-            dialog.dismiss();  // Fecha o diálogo
+            dialog.dismiss();
         });
 
         dialog.show();

@@ -2,7 +2,6 @@ package appmedico.com.appotes06;
 
 import android.os.Bundle;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -61,7 +60,6 @@ public class AtualizarMedicoActivity extends AppCompatActivity {
             String uf = ((EditText) findViewById(R.id.ufView)).getText().toString();
             String cep = ((EditText) findViewById(R.id.cepView)).getText().toString();
             Endereco endereco = new Endereco(logradouro, numero, complemento, bairro, cidade, uf, cep);
-
 
             // Criar o objeto DadosAtualizacaoMedico com os dados preenchidos
             DadosAtualizacaoMedico dados = new DadosAtualizacaoMedico(idMedico,

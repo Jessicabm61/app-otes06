@@ -5,7 +5,6 @@ import java.util.List;
 import api.ApiService;
 import api.RetrofitClient;
 import model.Agenda;
-import model.AgendaResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
