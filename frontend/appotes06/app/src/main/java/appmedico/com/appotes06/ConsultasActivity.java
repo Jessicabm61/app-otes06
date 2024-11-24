@@ -1,9 +1,7 @@
-// ConsultasActivity.java
 package appmedico.com.appotes06;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ListView;
 import android.widget.Button;
 import android.widget.Toast;
@@ -18,7 +16,6 @@ import adapter.ConsultaAdapter;
 public class ConsultasActivity extends AppCompatActivity {
 
     private ListView listConsultas;
-    private Button btnCadastrar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +26,6 @@ public class ConsultasActivity extends AppCompatActivity {
 
         //configura button_cadastrar para navegar para activity de cadastro
         findViewById(R.id.button_cadastrar).setOnClickListener(view -> startActivity(new Intent(ConsultasActivity.this, ConsultasCreateActivity.class)));
-
 
         carregarConsultas(); // Carregar as consultas ao abrir a activity
     }

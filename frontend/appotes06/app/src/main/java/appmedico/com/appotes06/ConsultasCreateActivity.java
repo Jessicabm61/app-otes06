@@ -14,8 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -245,9 +243,8 @@ public class ConsultasCreateActivity extends AppCompatActivity {
 
     // Método para cancelar o agendamento e voltar para a MainActivity
     private void cancelarConsulta() {
-        // Cria uma Intent para voltar à MainActivity
         Intent intent = new Intent(ConsultasCreateActivity.this, MainActivity.class);
-        startActivity(intent);  // Inicia a MainActivity
-        finish();  // Finaliza a ConsultasCreateActivity
+        startActivity(intent);
+        finish();
     }
 }

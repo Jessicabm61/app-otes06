@@ -2,19 +2,19 @@ package appmedico.com.appotes06;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatEditText;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import java.util.List;
-
 import adapter.MedicoAdapter;
 import data.MedicoRepository;
 import model.Medico;
@@ -22,6 +22,8 @@ import model.Medico;
 public class MedicosActivity extends AppCompatActivity {
 
     private ListView listViewMedicos;
+    private MedicoAdapter adapter;
+    private List<Medico> medicos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,28 +34,55 @@ public class MedicosActivity extends AppCompatActivity {
         // Inicializando o ListView
         listViewMedicos = findViewById(R.id.listViewMedicos);
 
+        // Inicializando o EditText de pesquisa
+        AppCompatEditText editTextPesquisar = findViewById(R.id.editTextText2);
+
         // Carregar os médicos ao abrir a Activity
         carregarMedicos();
 
-        //configura button_cadastrar para navegar para activity de cadastro
-        findViewById(R.id.button_cadastrar).setOnClickListener(view -> startActivity(new Intent(MedicosActivity.this, MedicosCreateActivity.class)));
+        // Configura button_cadastrar para navegar para activity de cadastro
+        findViewById(R.id.button_cadastrar).setOnClickListener(view ->
+                startActivity(new Intent(MedicosActivity.this, MedicosCreateActivity.class))
+        );
 
-    ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-        Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-        v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-        return insets;
-    });
+        // Adiciona o TextWatcher no EditText de pesquisa
+        editTextPesquisar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+            }
 
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                // Verifique se o adapter foi inicializado
+                if (adapter != null) {
+                    // Usa o método filtrar do adapter
+                    adapter.filtrar(charSequence.toString());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+
+        // Ajuste da interface para lidar com barras do sistema
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
     }
 
-    // Método para carregar medicos
+    // Método para carregar médicos
     private void carregarMedicos() {
         MedicoRepository medicoRepository = new MedicoRepository();
         medicoRepository.listarMedicos(new MedicoRepository.MedicosCallback() {
             @Override
             public void onSucess(List<Medico> medicos) {
-                // Criando o adapter e configurando no ListView
-                MedicoAdapter adapter = new MedicoAdapter(MedicosActivity.this, medicos);
+                // Armazena os médicos e configura o adapter
+                MedicosActivity.this.medicos = medicos;
+                // Inicializando o adapter com os dados
+                adapter = new MedicoAdapter(MedicosActivity.this, medicos);
                 listViewMedicos.setAdapter(adapter);
             }
 

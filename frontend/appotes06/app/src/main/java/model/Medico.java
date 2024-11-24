@@ -1,7 +1,7 @@
 package model;
 
 public class Medico {
-    private Long id;                // O 'id' será atribuído após a resposta da API
+    private Long id;
     private String nome;
     private String especialidade;
     private String crm;
@@ -9,7 +9,6 @@ public class Medico {
     private String telefone;
     private Endereco endereco;
 
-    // Construtor sem id
     public Medico(String nome, String especialidade, String crm, String email, String telefone, Endereco endereco) {
         this.nome = nome;
         this.especialidade = especialidade;
@@ -19,7 +18,6 @@ public class Medico {
         this.endereco = endereco;
     }
 
-    // Getter e Setter para id
     public Long getId() {
         return id;
     }
@@ -28,7 +26,6 @@ public class Medico {
         this.id = id;
     }
 
-    // Getter e Setter para nome
     public String getNome() {
         return nome;
     }
@@ -37,7 +34,6 @@ public class Medico {
         this.nome = nome;
     }
 
-    // Getter e Setter para especialidade
     public String getEspecialidade() {
         return especialidade;
     }
@@ -46,7 +42,6 @@ public class Medico {
         this.especialidade = especialidade;
     }
 
-    // Getter e Setter para CRM
     public String getCrm() {
         return crm;
     }
@@ -55,7 +50,6 @@ public class Medico {
         this.crm = crm;
     }
 
-    // Getter e Setter para email
     public String getEmail() {
         return email;
     }
@@ -64,7 +58,6 @@ public class Medico {
         this.email = email;
     }
 
-    // Getter e Setter para telefone
     public String getTelefone() {
         return telefone;
     }
@@ -73,7 +66,6 @@ public class Medico {
         this.telefone = telefone;
     }
 
-    // Getter e Setter para endereco
     public Endereco getEndereco() {
         return endereco;
     }

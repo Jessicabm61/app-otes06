@@ -12,9 +12,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import java.util.ArrayList;
 import java.util.List;
-
 import appmedico.com.appotes06.AtualizarMedicoActivity;
 import data.MedicoRepository;
 import model.Medico;
@@ -24,12 +23,14 @@ public class MedicoAdapter extends ArrayAdapter<Medico> {
 
     private Context context;
     private List<Medico> medicos;
+    private List<Medico> medicosOriginal;  // Lista original (não filtrada)
     private MedicoRepository medicoRepository; // Repositório para excluir médico
 
     public MedicoAdapter(Context context, List<Medico> medicos) {
         super(context, 0, medicos);
         this.context = context;
         this.medicos = medicos;
+        this.medicosOriginal = new ArrayList<>(medicos); // Armazena a lista original
         this.medicoRepository = new MedicoRepository();
     }
 
@@ -58,7 +59,7 @@ public class MedicoAdapter extends ArrayAdapter<Medico> {
         Button buttonCancelar = convertView.findViewById(R.id.buttonCancelar);
         Button buttonEditar = convertView.findViewById(R.id.buttonEditar);
 
-        //Configura a visibilidade dos botões
+        // Configura a visibilidade dos botões
         imageViewOptions.setOnClickListener(v -> {
             if (llButtons.getVisibility() == View.GONE) {
                 llButtons.setVisibility(View.VISIBLE);
@@ -73,13 +74,13 @@ public class MedicoAdapter extends ArrayAdapter<Medico> {
             }
         });
 
-        //Botão Editar envia os dados para a Activity de edição
+        // Botão Editar envia os dados para a Activity de edição
         buttonEditar.setOnClickListener(v -> {
             if (medico != null) {
                 // Crie o Intent para navegar para a AtualizarMedicoActivity
                 Intent intent = new Intent(context, AtualizarMedicoActivity.class);
 
-                // Passando todos os dados do médico via Intent
+                // Passando os dados do médico via Intent
                 intent.putExtra("ID_MEDICO", medico.getId());
                 intent.putExtra("NOME_MEDICO", medico.getNome());
 
@@ -128,5 +129,24 @@ public class MedicoAdapter extends ArrayAdapter<Medico> {
         });
 
         dialog.show();
+    }
+
+    // Método para atualizar a lista filtrada
+    public void atualizarListaFiltrada(List<Medico> listaFiltrada) {
+        this.medicos = listaFiltrada;
+        clear();  // Limpa a lista atual do adapter
+        addAll(listaFiltrada);  // Adiciona todos os médicos filtrados
+        notifyDataSetChanged();  // Notifica o adapter para atualizar a lista
+    }
+
+    // Método para filtrar os médicos com base no nome
+    public void filtrar(String query) {
+        List<Medico> listaFiltrada = new ArrayList<>();
+        for (Medico medico : medicosOriginal) {
+            if (medico.getNome().toLowerCase().contains(query.toLowerCase())) {
+                listaFiltrada.add(medico);
+            }
+        }
+        atualizarListaFiltrada(listaFiltrada);
     }
 }

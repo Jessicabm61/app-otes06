@@ -10,10 +10,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
-import data.MedicoRepository;
 import data.PacienteRepository;
-import model.DadosAtualizacaoMedico;
 import model.DadosAtualizacaoPaciente;
 import model.Endereco;
 
